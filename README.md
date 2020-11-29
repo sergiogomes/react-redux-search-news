@@ -2,6 +2,8 @@
 
 React Redux Search News
 
+[![time tracker](https://wakatime.com/badge/github/sergiogomes/react-redux-search-news.svg)](https://wakatime.com/badge/github/sergiogomes/react-redux-search-news)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ```sh
