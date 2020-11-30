@@ -22,7 +22,7 @@ export const searchTextSlice = createSlice({
 
 export const { changeText } = searchTextSlice.actions;
 
-export const selectSearchedText = (state: RootState) => state.searchText;
+export const selectSearchedText = (state: RootState) => state.searchText.value;
 
 export default searchTextSlice.reducer;
 
