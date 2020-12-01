@@ -1,8 +1,8 @@
 import React from 'react';
 
-import logo from './logo.svg';
-import Counter from './features/counter/Counter';
-import Header from './core/components/header/Header';
+import logo from '../logo.svg';
+import Counter from './counter/Counter';
+import Header from '../core/components/header/Header';
 import './App.css';
 
 const App = () => {
