@@ -13,7 +13,8 @@ const Header = () => {
   const [query, setQuery] = useState(searchText);
   const dispatch = useDispatch();
 
-  const handleClick = () => {
+  const handleClick = (e: React.FormEvent) => {
+    e.preventDefault();
     dispatch(changeText(query))
     setSearch(true);
     setTimeout(() => setSearch(false), 0);
@@ -30,12 +31,12 @@ const Header = () => {
       <Navbar.Brand>
         <Link to="/">React News</Link>
       </Navbar.Brand>
-      <Form inline>
+      <Form inline onSubmit={e => handleClick(e)}>
         <FormControl type="text" value={query}
           placeholder="Search" className="mr-sm-2"
           onChange={e => setQuery(e.target.value)} />
         <Button variant="outline-success"
-          onClick={handleClick}>Search</Button>
+          onClick={e => handleClick(e)}>Search</Button>
       </Form>
       {renderRedirect()}
     </Navbar>

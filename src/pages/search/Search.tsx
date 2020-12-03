@@ -1,17 +1,21 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { get } from '../../core/axios/axios';
 import { selectSearchedText } from "../../core/components/header/headerSlice";
+import { showLoading, hideLoading } from '../../core/components/loading/loadingSlice';
 
 const Search = () => {
   const [data, setData] = useState([]);
   const [sortBy] = useState('publishedAt');
   const [page] = useState(1);
   const searchText = useSelector(selectSearchedText);
+  const dispatch = useDispatch();
 
   const getData = useCallback(async () => {
     console.log('useCallback');
+    if (!searchText) return ;
+    dispatch(showLoading());
     const response = await get(
       `/v2/everything?q=${searchText}&sortBy=${sortBy}&page=${page}`
     )
@@ -21,14 +25,13 @@ const Search = () => {
     } else {
       // TODO: setError
     }
-  }, [searchText, sortBy, page])
+    dispatch(hideLoading());
+  }, [searchText, sortBy, page, dispatch]);
 
   useEffect(() => {
     console.log('useEffect');
-    if (searchText) {
-      getData().then();
-    }
-  }, [searchText, getData]);
+    getData().then();
+  }, [getData]);
   
   return (
     <>
