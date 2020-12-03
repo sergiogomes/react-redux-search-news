@@ -8,11 +8,13 @@ import { selectSearchedText, changeText } from './headerSlice';
 // import styles from './Header.module.css';
 
 const Header = () => {
-  const [isSearch, setSearch] = useState(false);
   const searchText = useSelector(selectSearchedText);
+  const [isSearch, setSearch] = useState(false);
+  const [query, setQuery] = useState(searchText);
   const dispatch = useDispatch();
 
   const handleClick = () => {
+    dispatch(changeText(query))
     setSearch(true);
     setTimeout(() => setSearch(false), 0);
   };
@@ -29,9 +31,9 @@ const Header = () => {
         <Link to="/">React News</Link>
       </Navbar.Brand>
       <Form inline>
-        <FormControl type="text" value={searchText}
+        <FormControl type="text" value={query}
           placeholder="Search" className="mr-sm-2"
-          onChange={e => dispatch(changeText(e.target.value))} />
+          onChange={e => setQuery(e.target.value)} />
         <Button variant="outline-success"
           onClick={handleClick}>Search</Button>
       </Form>
