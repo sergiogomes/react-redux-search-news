@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { get } from '../../core/axios/axios';
 import { selectSearchedText } from "../../core/components/header/headerSlice";
 import { showLoading, hideLoading } from '../../core/components/loading/loadingSlice';
+import Result from "./components/result/Result";
 
 const Search = () => {
   const [data, setData] = useState([]);
@@ -38,12 +39,7 @@ const Search = () => {
       <h1>Search</h1>
       {data && data.map((article, i) => (
         <div key={article['publishedAt'] + i}>
-          {article['title']}
-          {article['description']}
-          {article['author']}
-          {article['urlToImage']}
-          {article['url']}
-          {article['publishedAt']}
+          <Result article={article} />
         </div>
       ))}
     </>
