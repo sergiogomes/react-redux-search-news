@@ -14,7 +14,6 @@ const Search = () => {
   const dispatch = useDispatch();
 
   const getData = useCallback(async () => {
-    console.log('useCallback');
     if (!searchText) return ;
     dispatch(showLoading());
     const response = await get(
@@ -30,13 +29,12 @@ const Search = () => {
   }, [searchText, sortBy, page, dispatch]);
 
   useEffect(() => {
-    console.log('useEffect');
     getData().then();
   }, [getData]);
   
   return (
     <>
-      <h1>Search</h1>
+      <h3>Search Page</h3>
       {data && data.map((article, i) => (
         <div key={article['publishedAt'] + i}>
           <Result article={article} />

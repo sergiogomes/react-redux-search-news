@@ -3,7 +3,7 @@ import { Jumbotron } from "react-bootstrap";
 
 const Home = () => {
   return (
-    <Jumbotron>
+    <Jumbotron className="my-2">
       <h1 className="display-4">Home Page</h1>
       <p className="lead">Get breaking news headlines, and search for articles from news sources and blogs all over the web with our news API</p>
       <hr className="my-4" />

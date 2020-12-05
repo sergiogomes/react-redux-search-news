@@ -3,11 +3,17 @@ import { Card, Col, Row } from "react-bootstrap";
 
 import { IArticle } from "../../interfaces/IArticle";
 
+import placeholder from '../../../../images/placeholder.png';
+
 type CardProps = {
   article: IArticle;
 };
 
 const Result = ({ article }: CardProps) => {
+
+  const addDefaultSrc = (ev: any) => {
+    ev.target.src = placeholder;
+  };
 
   return (
     <Card className="my-2">
@@ -24,7 +30,8 @@ const Result = ({ article }: CardProps) => {
           </Card.Body>
         </Col>
         <Col md={4}>
-          <Card.Img variant="top" src={article.urlToImage} alt={article.title} />
+          <Card.Img src={`${article.urlToImage ? article.urlToImage : placeholder}`}
+            variant="top" alt={article.title} onError={addDefaultSrc} />
         </Col>
       </Row>
     </Card>
@@ -32,4 +39,3 @@ const Result = ({ article }: CardProps) => {
 }
 
 export default Result;
-

@@ -1,0 +1,7 @@
+.justifyExpand {
+    justify-content: space-between;
+}
+
+.justifyFlexEnd {
+    justify-content: flex-end;
+}

@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import { Link, Redirect } from 'react-router-dom';
 
 import { selectSearchedText, changeText } from './headerSlice';
-// import styles from './Header.module.css';
+import styles from './Header.module.css';
 
 const Header = () => {
   const searchText = useSelector(selectSearchedText);
@@ -27,11 +27,11 @@ const Header = () => {
   };
 
   return (
-    <Navbar bg="light" expand="xl" sticky="top" >
+    <Navbar bg="light" sticky="top" className={styles.justifyExpand}>
       <Navbar.Brand>
         <Link to="/">React News</Link>
       </Navbar.Brand>
-      <Form inline onSubmit={e => handleClick(e)}>
+      <Form inline onSubmit={e => handleClick(e)} className={styles.justifyFlexEnd}>
         <FormControl type="text" value={query}
           placeholder="Search" className="mr-sm-2"
           onChange={e => setQuery(e.target.value)} />

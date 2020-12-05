@@ -10,7 +10,6 @@ const Loading = () => {
   const loadingState = useSelector(selectLoadingState);
 
   useEffect(() => {
-    console.log(loadingState, 'loadingState');
     if (loadingState > 0) {
       setDisplay('d-flex');
     } else {
