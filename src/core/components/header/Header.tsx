@@ -4,7 +4,7 @@ import { Button, Form, FormControl } from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar'
 import { Link, Redirect } from 'react-router-dom';
 
-import { selectSearchedText, changeText } from './headerSlice';
+import { selectSearchedText, changeText, changePage } from './headerSlice';
 import styles from './Header.module.css';
 
 const Header = () => {
@@ -16,6 +16,7 @@ const Header = () => {
   const handleClick = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(changeText(query))
+    dispatch(changePage(1))
     setSearch(true);
     setTimeout(() => setSearch(false), 0);
   };
@@ -41,6 +42,6 @@ const Header = () => {
       {renderRedirect()}
     </Navbar>
   );
-}
+};
 
 export default Header;

@@ -3,11 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../app/store';
 
 interface SearchTextState {
-  value: string;
+  text: string;
+  page: number;
 }
 
 const initialState: SearchTextState = {
-  value: '',
+  text: '',
+  page: 1,
 };
 
 export const searchTextSlice = createSlice({
@@ -15,14 +17,18 @@ export const searchTextSlice = createSlice({
   initialState,
   reducers: {
     changeText: (state, action: PayloadAction<string>) => {
-      state.value = action.payload;
+      state.text = action.payload;
+    },
+    changePage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
     },
   },
 });
 
-export const { changeText } = searchTextSlice.actions;
+export const { changeText, changePage } = searchTextSlice.actions;
 
-export const selectSearchedText = (state: RootState) => state.searchText.value;
+export const selectSearchedText = (state: RootState) => state.searchText.text;
+export const selectSearchedPage = (state: RootState) => state.searchText.page;
 
 export default searchTextSlice.reducer;
 

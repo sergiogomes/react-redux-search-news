@@ -35,7 +35,7 @@ const Result = ({ article }: CardProps) => {
         </Col>
       </Row>
     </Card>
-  )
-}
+  );
+};
 
 export default Result;

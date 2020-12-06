@@ -9,7 +9,7 @@ const Home = () => {
       <hr className="my-4" />
       <p>React Search News is a simple and easy-to-use app that consumes News API for headlines and articles live all over the web right now.</p>
     </Jumbotron>
-  )
-}
+  );
+};
 
 export default Home;
