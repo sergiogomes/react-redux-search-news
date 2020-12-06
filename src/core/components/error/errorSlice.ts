@@ -2,13 +2,22 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from '../../../app/store';
 
+interface AxiosError {
+  isAxiosError: boolean;
+  url: string;
+  method: string;
+  code: string;
+  message: string;
+  status: string;
+};
+
 interface ErrorState {
   variant: string; // 'primary'|'secondary'|'success'|'danger'|'warning'|'info'|'light'|'dark'
   show: boolean;
   message: string;
   title: string;
-  action: object | any;
   actionTitle: string;
+  genericError: AxiosError | any;
 }
 
 const initialState: ErrorState = {
@@ -16,8 +25,8 @@ const initialState: ErrorState = {
   show: false,
   message: '',
   title: '',
-  action: null,
-  actionTitle: ''
+  actionTitle: '',
+  genericError: null,
 };
 
 export const errorSlice = createSlice({
@@ -36,23 +45,23 @@ export const errorSlice = createSlice({
     changeTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
     },
-    changeAction: (state, action: PayloadAction<object | null>) => {
-      state.action = action.payload;
-    },
     changeActionTitle: (state, action: PayloadAction<string>) => {
       state.actionTitle = action.payload;
+    },
+    changeGenericError: (state, action: PayloadAction<AxiosError>) => {
+      state.genericError = action.payload;
     },
   },
 });
 
-export const { changeVariant, changeShow, changeMessage, changeTitle, changeAction, changeActionTitle } = errorSlice.actions;
+export const { changeVariant, changeShow, changeMessage, changeTitle, changeActionTitle, changeGenericError } = errorSlice.actions;
 
 export const selectErrorVariant = (state: RootState) => state.error.variant;
 export const selectErrorShow = (state: RootState) => state.error.show;
 export const selectErrorMessage = (state: RootState) => state.error.message;
 export const selectErrorTitle = (state: RootState) => state.error.title;
-export const selectErrorAction = (state: RootState) => state.error.action;
 export const selectErrorActionTitle = (state: RootState) => state.error.actionTitle;
+export const selectGenericError = (state: RootState) => state.error.genericError;
 
 export default errorSlice.reducer;
 

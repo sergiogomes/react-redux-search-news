@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { get } from '../../core/axios/axios';
 import { changePage, selectSearchedPage, selectSearchedText } from "../../core/components/header/headerSlice";
+import { changeGenericError, changeShow } from "../../core/components/error/errorSlice";
 import { showLoading, hideLoading } from '../../core/components/loading/loadingSlice';
 import Paging from "../../core/components/paging/Paging";
 import Result from "./components/result/Result";
@@ -17,7 +18,7 @@ const Search = () => {
   const dispatch = useDispatch();
 
   const getData = useCallback(async () => {
-    if (!searchText) return ;
+    if (!searchText) return;
     dispatch(showLoading());
 
     const response = await get(
@@ -25,10 +26,11 @@ const Search = () => {
     );
     if (response.status === 'ok') {
       setData(response.articles);
-      // setResults(response.totalResults > 100 ? 100 : response.totalResults);
-      setResults(response.totalResults);
+      setResults(response.totalResults > 100 ? 100 : response.totalResults);
+      dispatch(changeShow(false));
     } else {
-      // TODO: setError
+      setData([]);
+      dispatch(changeGenericError(response));
     }
 
     dispatch(hideLoading());
@@ -42,11 +44,11 @@ const Search = () => {
     dispatch(changePage(page))
     getData().then();
   };
-  
+
   return (
     <>
       <h3>Search Page</h3>
-      
+
       {data && data.map((article, i) => (
         <div key={article['publishedAt'] + i}>
           <Result article={article} />

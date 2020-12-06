@@ -20,7 +20,7 @@ const Error = (props: ErrorProps) => {
       {actionTitle && <>
         <hr />
         <div className="d-flex justify-content-end">
-          <Button onClick={action}>
+          <Button variant={`outline-${variant}`} onClick={action}>
             {actionTitle}
           </Button>
         </div>
