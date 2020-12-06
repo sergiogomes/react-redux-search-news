@@ -19,15 +19,18 @@ const Search = () => {
   const getData = useCallback(async () => {
     if (!searchText) return ;
     dispatch(showLoading());
+
     const response = await get(
       `/v2/everything?q=${searchText}&sortBy=${sortBy}&page=${searchPage}`
-    )
+    );
     if (response.status === 'ok') {
       setData(response.articles);
-      setResults(response.totalResults > 100 ? 100 : response.totalResults);
+      // setResults(response.totalResults > 100 ? 100 : response.totalResults);
+      setResults(response.totalResults);
     } else {
       // TODO: setError
     }
+
     dispatch(hideLoading());
   }, [searchText, searchPage, sortBy, dispatch]);
 
