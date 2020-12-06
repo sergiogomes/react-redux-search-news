@@ -2,7 +2,7 @@ import React from "react";
 import { Alert, Button } from "react-bootstrap";
 
 type ErrorProps = {
-  variant: string;
+  variant: string; // 'primary'|'secondary'|'success'|'danger'|'warning'|'info'|'light'|'dark'
   show: boolean;
   message: string;
   title: string;
