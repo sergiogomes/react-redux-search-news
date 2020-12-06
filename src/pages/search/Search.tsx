@@ -9,7 +9,7 @@ import Result from "./components/result/Result";
 
 const Search = () => {
   const [data, setData] = useState([]);
-  const [quant, setQuant] = useState(0);
+  const [results, setResults] = useState(0);
   const [sortBy] = useState('publishedAt');
 
   const searchText = useSelector(selectSearchedText);
@@ -24,7 +24,7 @@ const Search = () => {
     )
     if (response.status === 'ok') {
       setData(response.articles);
-      setQuant(response.totalResults > 100 ? 100 : response.totalResults);
+      setResults(response.totalResults > 100 ? 100 : response.totalResults);
     } else {
       // TODO: setError
     }
@@ -50,11 +50,11 @@ const Search = () => {
         </div>
       ))}
 
-      <Paging
+      {results > 20 && <Paging
         page={searchPage}
-        results={quant}
+        results={results}
         changePage={handleChangePage}
-      />
+      />}
     </>
   );
 };
