@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { History } from 'history';
 
 import { get } from '../../core/axios/axios';
 import { changePage, selectSearchedPage, selectSearchedText } from "../../core/components/header/headerSlice";
@@ -8,7 +9,11 @@ import { showLoading, hideLoading } from '../../core/components/loading/loadingS
 import Paging from "../../core/components/paging/Paging";
 import Result from "./components/result/Result";
 
-const Search = () => {
+interface SearchProps {
+  history: History
+}
+
+const Search = ({ history }: SearchProps) => {
   const [data, setData] = useState([]);
   const [results, setResults] = useState(0);
   const [sortBy] = useState('publishedAt');
@@ -41,8 +46,11 @@ const Search = () => {
   }, [getData]);
 
   const handleChangePage = (page: number) => {
+    history.push({
+      pathname: '/search',
+      search: `?q=${searchText}&page=${page}`
+    });
     dispatch(changePage(page))
-    getData().then();
   };
 
   return (

@@ -23,7 +23,7 @@ const Header = () => {
 
   const renderRedirect = () => {
     if (isSearch) {
-      return <Redirect to={`/search?q=${searchText}`} />;
+      return <Redirect to={`/search?q=${searchText}&page=1`} />;
     }
   };
 

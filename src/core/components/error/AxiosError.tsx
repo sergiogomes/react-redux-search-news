@@ -29,14 +29,13 @@ const AxiosError = () => {
 
   useEffect(() => {
     if (genericError) {
-      console.log(genericError)
       dispatch(changeVariant('danger'));
       dispatch(changeShow(genericError.isAxiosError));
       dispatch(changeMessage(genericError.message));
       dispatch(changeTitle('Unexpected Error!'));
       dispatch(changeActionTitle('Close'));
     }
-  }, [genericError]);
+  }, [genericError, dispatch]);
 
   const handleAction = () => {
     dispatch(changeShow(false));
