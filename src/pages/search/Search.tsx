@@ -3,24 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { History } from 'history';
 
 import { get } from '../../core/axios/axios';
-import { changePage, selectSearchedPage, selectSearchedText } from "../../core/components/header/headerSlice";
+import { changePage, changeText, selectSearchedPage, selectSearchedText } from "../../core/components/header/headerSlice";
 import { changeGenericError, changeShow } from "../../core/components/error/errorSlice";
 import { showLoading, hideLoading } from '../../core/components/loading/loadingSlice';
 import Paging from "../../core/components/paging/Paging";
 import Result from "./components/result/Result";
 
 interface SearchProps {
-  history: History
+  history: History;
 }
 
 const Search = ({ history }: SearchProps) => {
+  const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [results, setResults] = useState(0);
   const [sortBy] = useState('publishedAt');
 
-  const searchText = useSelector(selectSearchedText);
-  const searchPage = useSelector(selectSearchedPage);
-  const dispatch = useDispatch();
+  let searchText = useSelector(selectSearchedText);
+  let searchPage = useSelector(selectSearchedPage);
 
   const getData = useCallback(async () => {
     if (!searchText) return;
@@ -43,7 +43,25 @@ const Search = ({ history }: SearchProps) => {
 
   useEffect(() => {
     getData().then();
+    console.log('getData');
   }, [getData]);
+
+  const getQuery = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      return new URLSearchParams(window.location.search);
+    }
+    return new URLSearchParams();
+  }, []);
+
+  useEffect(() => {
+    const query = getQuery().get('q');
+    if (query) dispatch(changeText(query));
+  }, [getQuery, dispatch]);
+
+  useEffect(() => {
+    let page = getQuery().get('page');
+    if (page) changePage(parseInt(page));
+  }, [getQuery, dispatch]);
 
   const handleChangePage = (page: number) => {
     history.push({

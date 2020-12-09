@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Form, FormControl } from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar'
@@ -26,6 +26,10 @@ const Header = () => {
       return <Redirect to={`/search?q=${searchText}&page=1`} />;
     }
   };
+
+  useEffect(() => {
+    if (searchText !== query) setQuery(searchText);
+  }, [searchText, query]);
 
   return (
     <Navbar bg="light" sticky="top" className={styles.justifyExpand}>
