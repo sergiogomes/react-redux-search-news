@@ -28,8 +28,8 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (searchText !== query) setQuery(searchText);
-  }, [searchText, query]);
+    setQuery(searchText);
+  }, [searchText]);
 
   return (
     <Navbar bg="light" sticky="top" className={styles.justifyExpand}>
