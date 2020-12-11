@@ -68,7 +68,8 @@ const Search = ({ history }: SearchProps) => {
       pathname: '/search',
       search: `?q=${searchText}&page=${page}`
     });
-    dispatch(changePage(page))
+    dispatch(changePage(page));
+    window['scrollTo']({ top: 0, behavior: 'smooth' });
   };
 
   return (
