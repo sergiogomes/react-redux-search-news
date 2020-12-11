@@ -43,7 +43,6 @@ const Search = ({ history }: SearchProps) => {
 
   useEffect(() => {
     getData().then();
-    console.log('getData');
   }, [getData]);
 
   const getQuery = useCallback(() => {
