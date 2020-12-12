@@ -1,10 +1,23 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { mount, ReactWrapper } from 'enzyme';
 
 import Header from './Header';
+import ReduxProvider from '../../../reduxProvider';
 
-test('renders header component', () => {
-  const { getByText } = render(<Header />);
+let wrapped: ReactWrapper;
 
-  expect(getByText(/React News/i)).toBeInTheDocument();
+beforeEach(() => {
+  wrapped = mount(
+    <ReduxProvider>
+      <Router>
+        <Header />
+      </Router>
+    </ReduxProvider>,
+  );
+});
+
+it('should contain the title React News', () => {
+  const title = 'React News';
+  expect(wrapped.render().text()).toContain(title);
 });
