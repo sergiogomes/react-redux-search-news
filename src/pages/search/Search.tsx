@@ -18,6 +18,7 @@ const Search = ({ history }: SearchProps) => {
   const [data, setData] = useState([]);
   const [results, setResults] = useState(0);
   const [sortBy] = useState('publishedAt');
+  const [noResults, setNoResults] = useState(false);
 
   let searchText = useSelector(selectSearchedText);
   let searchPage = useSelector(selectSearchedPage);
@@ -30,9 +31,14 @@ const Search = ({ history }: SearchProps) => {
       `/v2/everything?q=${searchText}&sortBy=${sortBy}&page=${searchPage}`
     );
     if (response.status === 'ok') {
-      setData(response.articles);
-      setResults(response.totalResults > 100 ? 100 : response.totalResults);
-      dispatch(changeShow(false));
+      if (response.totalResults > 0) {
+        setData(response.articles);
+        setResults(response.totalResults > 100 ? 100 : response.totalResults);
+        dispatch(changeShow(false));
+        setNoResults(false);
+      } else {
+        setNoResults(true);
+      }
     } else {
       setData([]);
       dispatch(changeGenericError(response));
@@ -74,6 +80,10 @@ const Search = ({ history }: SearchProps) => {
   return (
     <>
       <h3>Search Page</h3>
+
+      {noResults && 
+        <div>{`Your search - ${searchText} - did not match any news.`}</div>
+      }
 
       {data && data.map((article, i) => (
         <div key={article['publishedAt'] + i}>
