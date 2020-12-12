@@ -4,11 +4,11 @@ import { History } from 'history';
 
 import { get } from '../../core/axios/axios';
 import { changePage, changeText, selectSearchedPage, selectSearchedText } from "../../core/components/header/headerSlice";
-import { changeGenericError, changeShow } from "../../core/components/error/errorSlice";
+import { changeGenericAlertMessage, changeShow } from "../../core/components/alert-message/alertMessageSlice";
 import { showLoading, hideLoading } from '../../core/components/loading/loadingSlice';
 import Paging from "../../core/components/paging/Paging";
 import Result from "./components/result/Result";
-import Error from "../../core/components/error/Error";
+import AlertMessage from "../../core/components/alert-message/AlertMessage";
 
 interface SearchProps {
   history: History;
@@ -35,14 +35,16 @@ const Search = ({ history }: SearchProps) => {
       if (response.totalResults > 0) {
         setData(response.articles);
         setResults(response.totalResults > 100 ? 100 : response.totalResults);
-        dispatch(changeShow(false));
         setNoResults(false);
       } else {
+        setData([]);
+        setResults(0);
         setNoResults(true);
       }
+      dispatch(changeShow(false));
     } else {
       setData([]);
-      dispatch(changeGenericError(response));
+      dispatch(changeGenericAlertMessage(response));
     }
 
     dispatch(hideLoading());
@@ -83,7 +85,7 @@ const Search = ({ history }: SearchProps) => {
       <h3>Search Page</h3>
 
       {noResults && 
-        <Error variant="warning" show title="" action="" actionTitle=""
+        <AlertMessage variant="warning" show title="" action="" actionTitle=""
           message={`Your search - ${searchText} - did not match any results.`}
         />
       }

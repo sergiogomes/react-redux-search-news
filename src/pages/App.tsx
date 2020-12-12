@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
-import AxiosError from '../core/components/error/AxiosError';
+import AxiosAlertMessage from '../core/components/alert-message/AxiosAlertMessage';
 import Loading from '../core/components/loading/Loading';
 import Header from '../core/components/header/Header';
 import Counter from './counter/Counter';
@@ -17,7 +17,7 @@ const App = () => {
         <Loading />
         <Header />
         <Container>
-          <AxiosError />
+          <AxiosAlertMessage />
           <Route path="/" exact component={Home} />
           <Route path="/counter" component={Counter} />
           <Route path="/search" component={Search} />

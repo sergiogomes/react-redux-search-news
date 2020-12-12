@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert, Button } from "react-bootstrap";
 
-type ErrorProps = {
+type AlertMessageProps = {
   variant: string; // 'primary'|'secondary'|'success'|'danger'|'warning'|'info'|'light'|'dark'
   show: boolean;
   message: string;
@@ -10,7 +10,7 @@ type ErrorProps = {
   actionTitle: string;
 };
 
-const Error = (props: ErrorProps) => {
+const AlertMessage = (props: AlertMessageProps) => {
   const { show, variant, message, title, actionTitle, action } = props;
 
   return (
@@ -29,4 +29,4 @@ const Error = (props: ErrorProps) => {
   );
 };
 
-export default Error;
+export default AlertMessage;
