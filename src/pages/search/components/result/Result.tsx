@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 
 import { IArticle } from "../../interfaces/IArticle";
+import styles from './Result.module.css';
 
 import placeholder from '../../../../images/placeholder.png';
 
@@ -29,9 +30,10 @@ const Result = ({ article }: CardProps) => {
             </Card.Text>
           </Card.Body>
         </Col>
-        <Col md={4}>
+        <Col md={4} className={styles.minH150}>
           <Card.Img src={`${article.urlToImage ? article.urlToImage : placeholder}`}
-            variant="top" alt={article.title} onError={addDefaultSrc} />
+            variant="top" className={styles.fitCover}
+            alt={article.title} onError={addDefaultSrc} />
         </Col>
       </Row>
     </Card>
