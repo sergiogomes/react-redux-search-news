@@ -8,6 +8,7 @@ import { changeGenericError, changeShow } from "../../core/components/error/erro
 import { showLoading, hideLoading } from '../../core/components/loading/loadingSlice';
 import Paging from "../../core/components/paging/Paging";
 import Result from "./components/result/Result";
+import Error from "../../core/components/error/Error";
 
 interface SearchProps {
   history: History;
@@ -82,7 +83,9 @@ const Search = ({ history }: SearchProps) => {
       <h3>Search Page</h3>
 
       {noResults && 
-        <div>{`Your search - ${searchText} - did not match any news.`}</div>
+        <Error variant="warning" show title="" action="" actionTitle=""
+          message={`Your search - ${searchText} - did not match any results.`}
+        />
       }
 
       {data && data.map((article, i) => (
