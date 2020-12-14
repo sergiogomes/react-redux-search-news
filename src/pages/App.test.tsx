@@ -1,16 +1,20 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { render } from '@testing-library/react';
+import { mount, ReactWrapper } from 'enzyme';
 
-import { store } from '../app/store';
 import App from './App';
+import ReduxProvider from '../reduxProvider';
 
-test('renders the App', () => {
-  const { getByText } = render(
-    <Provider store={store}>
+let wrapped: ReactWrapper;
+
+beforeEach(() => {
+  wrapped = mount(
+    <ReduxProvider>
       <App />
-    </Provider>
+    </ReduxProvider>,
   );
+});
 
-  expect(getByText(/React/i)).toBeInTheDocument();
+it('should contain the title React News', () => {
+  const title = 'React News';
+  expect(wrapped.render().text()).toContain(title);
 });
