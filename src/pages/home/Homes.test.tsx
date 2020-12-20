@@ -1,17 +1,14 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import Home from './Home';
 
-let wrapped: ReactWrapper;
-
-beforeEach(() => {
-  wrapped = mount(
-    <Home />
-  );
+it('should contain a Home Page title', () => {
+  const wrapped = mount(<Home />);
+  expect(wrapped.render().text()).toContain('Home Page');
 });
 
-it('should contain a Home Page title', () => {
-  const title = 'Home Page';
-  expect(wrapped.render().text()).toContain(title);
+it('should contain a lead class name', () => {
+  const wrapped = shallow(<Home />);
+  expect(wrapped.find('.lead').exists()).toBe(true)
 });
