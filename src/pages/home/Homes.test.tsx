@@ -10,5 +10,5 @@ it('should contain a Home Page title', () => {
 
 it('should contain a lead class name', () => {
   const wrapped = shallow(<Home />);
-  expect(wrapped.find('.lead').exists()).toBe(true)
+  expect(wrapped.find('.lead').exists()).toBe(true);
 });

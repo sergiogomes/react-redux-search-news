@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, ReactWrapper, shallow } from 'enzyme';
 
 import Result from './Result';
 import ReduxProvider from '../../../../reduxProvider';
@@ -17,18 +17,27 @@ const article: IArticle = {
   urlToImage: 'https://www.hotnewhiphop.com/image/740x416/cover/1608578837_0c4b28d541806a35a06534d5b7678f0f.jpg/763768b1c57dbd0195a958b6e8a7ec37/1608578837_c4c2d28127ea33a3607b29ed7bd65451.jpg'
 };
 
-beforeEach(() => {
-  wrapped = mount(
-    <ReduxProvider>
-      <Result article={article} />
-    </ReduxProvider>,
-  );
+describe('Mounted Result component', () => {
+  beforeEach(() => {
+    wrapped = mount(
+      <ReduxProvider>
+        <Result article={article} />
+      </ReduxProvider>,
+    );
+  });
+
+  it('should contain the title Rappers React...', () => {
+    expect(wrapped.render().text()).toContain(article.title);
+  });
+
+  it('should contain the author Keenan Higgins', () => {
+    expect(wrapped.render().text()).toContain(article.author);
+  });
 });
 
-it('should contain the title Rappers React...', () => {
-  expect(wrapped.render().text()).toContain(article.title);
-});
-
-it('should contain the author Keenan Higgins', () => {
-  expect(wrapped.render().text()).toContain(article.author);
+describe('Shallowed Result component', () => {
+  it('should contain a muted class name', () => {
+    const wrapped = shallow(<Result article={article} />);
+    expect(wrapped.find('.text-muted').exists()).toBe(true);
+  });
 });
