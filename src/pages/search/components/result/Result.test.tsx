@@ -46,4 +46,8 @@ describe('Shallowed Result component', () => {
   it('should contain a muted class name', () => {
     expect(wrapped.find('.text-muted').exists()).toBe(true);
   });
+
+  it('should contain a no gutters class name', () => {
+    expect(wrapped.find('.no-gutters').exists()).toBe(true);
+  });
 });
