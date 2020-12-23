@@ -1,11 +1,10 @@
 import React from 'react';
-import { mount, ReactWrapper, shallow } from 'enzyme';
+import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 
 import Result from './Result';
 import ReduxProvider from '../../../../reduxProvider';
 import { IArticle } from '../../interfaces/IArticle';
 
-let wrapped: ReactWrapper;
 const article: IArticle = {
   author: 'Keenan Higgins',
   content: 'While December 21 may just be a normal winter solstice for a few of you out there, the date has literally been on the minds of "Black Twitter" for weeks due to a lighthearted rumor that Black people … [+1274 chars]',
@@ -18,6 +17,8 @@ const article: IArticle = {
 };
 
 describe('Mounted Result component', () => {
+  let wrapped: ReactWrapper;
+
   beforeEach(() => {
     wrapped = mount(
       <ReduxProvider>
@@ -36,8 +37,13 @@ describe('Mounted Result component', () => {
 });
 
 describe('Shallowed Result component', () => {
+  let wrapped: ShallowWrapper;
+
+  beforeEach(() => {
+    wrapped = shallow(<Result article={article} />);
+  });
+
   it('should contain a muted class name', () => {
-    const wrapped = shallow(<Result article={article} />);
     expect(wrapped.find('.text-muted').exists()).toBe(true);
   });
 });
