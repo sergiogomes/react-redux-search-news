@@ -5,19 +5,21 @@ import { mount, ReactWrapper } from 'enzyme';
 import Header from './Header';
 import ReduxProvider from '../../../reduxProvider';
 
-let wrapped: ReactWrapper;
+describe('Mounted Header component', () => {
+  let wrapped: ReactWrapper;
 
-beforeEach(() => {
-  wrapped = mount(
-    <ReduxProvider>
-      <Router>
-        <Header />
-      </Router>
-    </ReduxProvider>,
-  );
-});
+  beforeEach(() => {
+    wrapped = mount(
+      <ReduxProvider>
+        <Router>
+          <Header />
+        </Router>
+      </ReduxProvider>,
+    );
+  });
 
-it('should contain the title React News', () => {
-  const title = 'React News';
-  expect(wrapped.render().text()).toContain(title);
+  it('should contain the title React News', () => {
+    const title = 'React News';
+    expect(wrapped.render().text()).toContain(title);
+  });
 });
