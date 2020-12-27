@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 
 import Header from './Header';
 import ReduxProvider from '../../../reduxProvider';
@@ -22,4 +22,25 @@ describe('Mounted Header component', () => {
     const title = 'React News';
     expect(wrapped.render().text()).toContain(title);
   });
+
+  afterAll(() => wrapped.unmount());
+});
+
+
+describe('Shallowed Header component', () => {
+  let wrapped: ShallowWrapper;
+
+  beforeEach(() => {
+    wrapped = shallow(
+      <ReduxProvider>
+        <Header />
+      </ReduxProvider>
+    );
+  });
+
+  it('should contain a Header component', () => {
+    expect(wrapped.find(Header)).toHaveLength(1);
+  });
+
+  afterAll(() => wrapped.unmount());
 });
